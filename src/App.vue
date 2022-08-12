@@ -5,7 +5,7 @@ const todos = ref([])
 const name = ref('')
 
 const input_content = ref('')
-const input_category = ref(null)
+const input_category = ref('personal')
 
 const todos_asc = computed(() => todos.value.sort((a, b) => { // TODO fix such that data in the computed property is not edited as will result in unexpected behavior SUG Use watch instead
   return b.createdAt - a.createdAt
@@ -22,7 +22,7 @@ onMounted(() => {
 })
 
 const addTodo = () => {
-  if (input_content.value.trim() === '' || input_category.value === null) {
+  if (input_content.value.trim() === '') {
     return
   }
 
@@ -34,7 +34,7 @@ const addTodo = () => {
   })
 
   input_content.value = ''
-  input_category.value = ''
+  input_category.value = 'personal'
 }
 
 watch(todos, (newVal) => {
@@ -55,11 +55,11 @@ const removeTodo = todo => {
       </h2>
     </div>
     <div class="create-todo">
-      <h3>CREATE TODO</h3>
+      <h3 style="margin-top: 10px; margin-bottom: 10px">CREATE TODO</h3>
       <form @submit.prevent="addTodo">
         <h4>What's on your todo list?</h4>
         <input type="text"
-               placeholder="e.g., make a video"
+               placeholder="e.g., write the assignment"
                v-model="input_content"/>
 
         <h4>Pick a category</h4>
@@ -86,7 +86,7 @@ const removeTodo = todo => {
         <input type="submit" value="Add todo">
       </form>
     </div>
-    <div class="todo-list">
+    <div class="todo-list" style="margin-top: 20px">
       <h3>TODO LIST</h3>
       <div class="list">
         <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`" :key="todo.id">
