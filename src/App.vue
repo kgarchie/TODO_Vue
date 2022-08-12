@@ -42,7 +42,7 @@ watch(todos, (newVal) => {
 }, {deep: true})
 
 const removeTodo = todo => {
-  todo.value = todos.value.filter(t => t !== todo)
+  todos.value = todos.value.filter(t => t !== todo)
 }
 
 </script>
